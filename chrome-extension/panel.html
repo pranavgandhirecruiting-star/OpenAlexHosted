@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>OpenAlex Author Scraper</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 12px; }
+    h2 { margin: 0 0 10px 0; font-size: 16px; }
+    label { font-size: 12px; display:block; margin-top: 10px; }
+    textarea, input { width: 100%; box-sizing: border-box; padding: 8px; margin-top: 6px; }
+    textarea { height: 90px; }
+    .row { display:flex; gap:10px; }
+    .row > div { flex:1; }
+    button { margin-top: 10px; padding: 10px; width: 100%; cursor: pointer; }
+    .muted { color:#666; font-size: 12px; }
+    .box { border:1px solid #ddd; border-radius: 10px; padding: 10px; margin-top: 12px; }
+    .barwrap { height: 10px; background: #eee; border-radius: 999px; overflow: hidden; margin-top: 10px; }
+    .bar { height: 10px; width: 0%; background: #111; }
+    .inline { display:flex; align-items:center; gap:8px; margin-top:10px; }
+    .inline input[type="checkbox"] { width:auto; margin:0; }
+    .hidden { display:none; }
+  </style>
+</head>
+<body>
+  <h2>OpenAlex Author Finder</h2>
+
+  <label>Seed Work IDs (one per line)</label>
+  <textarea id="seeds" placeholder="W##########"></textarea>
+  <div class="muted">Tip: lowercase “w” is fine — we auto-capitalize.</div>
+
+  <label>Min Eng Gate Score <span class="muted">(tune up for better 'industry' signal)</span></label>
+  <input id="enggate" type="number" value="0" />
+
+  <!-- Run button sits under Min Eng Gate Score -->
+  <button id="run">Run Search</button>
+
+  <div class="inline">
+    <input id="ghsniff" type="checkbox" />
+    <label for="ghsniff" style="margin:0;">GitHub sniff test</label>
+  </div>
+
+  <div id="ghTokenWrap" class="hidden">
+    <label>GitHub PAT (only used locally)</label>
+    <input id="ghtoken" type="password" placeholder="github_pat_..." />
+    <div class="muted">If unchecked, the pipeline runs without GitHub sniffing.</div>
+  </div>
+
+  <div class="box">
+    <div id="statusText">Idle.</div>
+    <div id="statusMeta" class="muted"></div>
+
+    <div class="barwrap">
+      <div id="bar" class="bar"></div>
+    </div>
+    <div id="progressLine" class="muted"></div>
+
+    <button id="download" style="display:none;">Download XLSX</button>
+  </div>
+
+  <script src="panel.js"></script>
+</body>
+</html>
